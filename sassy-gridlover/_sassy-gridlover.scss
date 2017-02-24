@@ -148,8 +148,25 @@
 @mixin sgl-debug-heading($step) {
     $computed-font-size: computed-font-size($step);
     $line-height: line-height();
+    $margin-bottom: $line-height;
+    $margin-top: $line-height;
 
-    @include sgl-show-margins($line-height, $line-height, $computed-font-size);
+    @if ($step == 3) {
+        $margin-bottom: $line-height * 2;
+        $margin-top: $line-height;
+    }
+
+    @if ($step == 2) {
+        $margin-bottom: $line-height;
+        $margin-top: $line-height;
+    }
+
+    @if ($step <= 1) {
+        $margin-bottom: 0;
+        $margin-top: $line-height;
+    }
+
+    @include sgl-show-margins($margin-bottom, $margin-top, $computed-font-size);
 }
 
 @mixin sgl-heading($step, $unit: $sgl-base-unit, $base-value: $sgl-base-font-size) {
@@ -223,12 +240,11 @@
 /// }
 
 @mixin sgl-debug-margin(){
-    $line-height: line-height()
-    @include sgl-show-margins($line-height, 0, $base-value);
+    $line-height: line-height();
+    @include sgl-show-margins($line-height, 0, $sgl-base-font-size);
 }
 
 @mixin sgl-margins($unit: $sgl-base-unit, $base-value: $sgl-base-font-size) {
-    
     $margin: round($base-value * $sgl-base-line-height);
     $margin-bottom: $margin;
     $margin-top: 0;
