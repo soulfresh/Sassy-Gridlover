@@ -6,6 +6,28 @@
     @include sgl-show-grid($sgl-base-font-size, $sgl-base-line-height);
 }
 
+/// TODO Docs
+@function sgl-ms($step, $unit: $sgl-base-unit, $base-value: $sgl-base-font-size) {
+  $font-size: $sgl-base-font-size;
+  $scale: $sgl-scale-factor;
+  $computed-font-size: round($font-size * sgl-exponent($scale, $step));
+  $line-height: round($font-size * $sgl-base-line-height);
+  $lines: ceil($computed-font-size / $line-height);
+  $computed-line-height: $line-height * $lines;
+
+  @if ($unit == "px" or $unit == "pxrem") {
+    @return $computed-line-height * 1px;
+  }
+
+  @if ($unit == "rem") {
+    @return sgl-rem-calc($computed-line-height);
+  }
+
+  @if ($unit == "em") {
+    @return sgl-decimal-ceil(sgl-em-calc($computed-font-size, $base-value), 5);
+  }
+}
+
 /// To use in the `<body>`.
 ///
 /// Outputs `font-size` and `line-height`.
