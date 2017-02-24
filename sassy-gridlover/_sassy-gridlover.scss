@@ -137,8 +137,22 @@
 ///     margin-top: 1.375rem;
 /// }
 
+@function computed-font-size($step, $font-size: $sgl-base-font-size, $scale: $sgl-scale-factor) {
+    @return round($font-size * sgl-exponent($scale, $step));
+}
+
+@function line-height($font-size: $sgl-base-font-size, $line-height: $sgl-base-line-height) {
+    @return round($font-size * $line-height);
+}
+
+@mixin sgl-debug-heading($step) {
+    $computed-font-size: computed-font-size($step);
+    $line-height: line-height();
+
+    @include sgl-show-margins($line-height, $line-height, $computed-font-size);
+}
+
 @mixin sgl-heading($step, $unit: $sgl-base-unit, $base-value: $sgl-base-font-size) {
-    
     $font-size: $sgl-base-font-size;
     $scale: $sgl-scale-factor;
     $computed-font-size: round($font-size * sgl-exponent($scale, $step));
@@ -207,6 +221,11 @@
 ///    margin-bottom: 1.375rem;
 ///    margin-top: 1.375rem;
 /// }
+
+@mixin sgl-debug-margin(){
+    $line-height: line-height()
+    @include sgl-show-margins($line-height, 0, $base-value);
+}
 
 @mixin sgl-margins($unit: $sgl-base-unit, $base-value: $sgl-base-font-size) {
     

@@ -1,12 +1,14 @@
-@mixin sgl-show-grid($sgl-base-font-size, $sgl-base-line-height) {
-    html {
-        background-image: linear-gradient(hsla(200, 100%, 50%, .3) 1px, transparent 1px);
-        background-position: left top;
-        background-size: round($sgl-base-font-size * $sgl-base-line-height) * 1px round($sgl-base-font-size * $sgl-base-line-height) * 1px;
-    }
+/// TODO Docs on how to pass class name.
+@mixin sgl-grid-lines($sgl-base-font-size, $sgl-base-line-height) {
+    background-image: linear-gradient(hsla(200, 100%, 50%, .3) 1px, transparent 1px);
+    background-position: left top;
+    background-size: round($sgl-base-font-size * $sgl-base-line-height) * 1px round($sgl-base-font-size * $sgl-base-line-height) * 1px;
+    box-shadow: 1px 0px 0px hsla(200, 100%, 50%, .3), -1px 0px 0px hsla(200, 100%, 50%, .3);
+}
 
+@mixin sgl-show-grid($sgl-base-font-size, $sgl-base-line-height) {
     body {
-        box-shadow: 1px 0px 0px hsla(200, 100%, 50%, .3), -1px 0px 0px hsla(200, 100%, 50%, .3);
+        @include sgl-grid-lines($sgl-font-size, $sgl-base-line-height);
     }
 }
 
